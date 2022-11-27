@@ -29,3 +29,9 @@
   height: 250px;
   resize: none;
 }
+
+.link {
+  text-align: right;
+  margin-right: 30px;
+  text-decoration: none;
+}
