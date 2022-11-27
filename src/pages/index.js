@@ -2,14 +2,13 @@ import '../styles/index.css';
 
 import findFrequence from '../utils/findFrequence';
 import Form from "../components/Form";
+import { huffmanEncode, huffmanKey } from '../utils/huffmanEncode';
 import BinarySearchTree from '../components/BinarySearchTree';
-import getElementsByPriorities from '../utils/getElementsByPriorities';
-import huffmanEncode from '../utils/huffmanEncode';
 
 function ObjToText(obj) {
   var res = '';
   for (var i in obj) {
-    res += `"${obj[i].value}": ${obj[i].priority}, `;
+    res += `'${i}': ${obj[i]}  `;
   }
   return res;
 }
@@ -19,15 +18,10 @@ function handleSubmit(id) {
     formDecode.enableForm();
 
     const frequences = findFrequence(formEncode.getTextArea());
-    // console.log(frequences);
-    const frequencesByPriorities = getElementsByPriorities(frequences);
-    // console.log(frequencesByPriorities);
-
-    formDecode.setTextArea(ObjToText(frequencesByPriorities));
-    huffmanEncode(frequencesByPriorities);
-
-    formDecode.setTextArea(formDecode.getTextArea() + ObjToText(getElementsByPriorities(frequences)));
-
+    // huffmanEncode(formEncode.getTextArea(), frequences);
+    formDecode.setTextArea(`${ObjToText(huffmanKey(frequences))}
+    _________
+${huffmanEncode(formEncode.getTextArea(), frequences)}`);
   } else {
     formEncode.enableForm();
     // formEncode.setTextArea(formDecode.getTextArea());
@@ -40,16 +34,11 @@ const formDecode = new Form('decode', handleSubmit);
 formEncode.setEventListeners();
 formDecode.setEventListeners();
 
-const BST = new BinarySearchTree();
-BST.insert(11); // establishes root node 
-BST.insert(7);
-BST.insert(9);
-BST.insert(15);
+// const BST = new BinarySearchTree();
+// BST.insert({priority: 2, value: 'f'});
+// BST.insertLeft({priority: 1, value: 'b'}); // establishes root node
+// BST.insertRight({priority: 1, value: 'g'});
+// // BST.insert({priority: 1, value: 'g'});
+// // BST.insert({priority: 5, value: 'g'});
 
-BST.insert(6);
-
-// BST.inOrderTraverse(BST.root, console.log); //нужный обход, выводит значения в пор-ке возрастания
-// console.log('...');
-// BST.postOrderTraverse(BST.root, console.log);
-// console.log('...');
 // BST.preOrderTraverse(BST.root, console.log);
